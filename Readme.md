@@ -21,22 +21,22 @@ git clone https://github.com/yashgupta-lc/yolo-app.git temp-repo
 ### Step 3: Move Files Into Place
 ```bash
 # Move backend into main directory
-mv temp-repo/backend ./backend
+mv yolo-app/backend ./backend
 
 # Move frontend Dockerfile
-mv temp-repo/Dockerfile ./frontend/Dockerfile
+mv yolo-app/Dockerfile ./frontend/Dockerfile
 
 # Move React files (overwrite existing ones)
-mv -f temp-repo/App.js ./frontend/src/App.js
-mv -f temp-repo/App.css ./frontend/src/App.css
+mv -f yolo-app/App.js ./frontend/src/App.js
+mv -f yolo-app/App.css ./frontend/src/App.css
 
 # Move README (optional)
-mv temp-repo/Readme.md ./Readme.md
+mv yolo-app/Readme.md ./Readme.md
 ```
 
 ### Step 4: Cleanup
 ```bash
-rm -rf temp-repo
+rm -rf yolo-app
 ```
 
 ---
