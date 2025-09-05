@@ -2,12 +2,44 @@
 
 ## Project Creation
 
-### Frontend Setup with Create React App
+### Step 1: Frontend Setup with Create React App
 ```bash
-# Create a new React application
+# Go to Desktop and create React app
 cd /home/yash/Desktop
 npx create-react-app YOLO-APP/frontend
 ```
+
+### Step 2: Clone Your Repo
+```bash
+# Go back to YOLO-APP root
+cd YOLO-APP
+
+# Clone your repo (contains backend and extra files)
+git clone https://github.com/yashgupta-lc/yolo-app.git temp-repo
+```
+
+### Step 3: Move Files Into Place
+```bash
+# Move backend into main directory
+mv temp-repo/backend ./backend
+
+# Move frontend Dockerfile
+mv temp-repo/Dockerfile ./frontend/Dockerfile
+
+# Move React files (overwrite existing ones)
+mv -f temp-repo/App.js ./frontend/src/App.js
+mv -f temp-repo/App.css ./frontend/src/App.css
+
+# Move README (optional)
+mv temp-repo/Readme.md ./Readme.md
+```
+
+### Step 4: Cleanup
+```bash
+rm -rf temp-repo
+```
+
+---
 
 ## Directory Structure
 ```
@@ -20,32 +52,15 @@ YOLO-APP/
     ├── Dockerfile
     ├── package.json
     ├── src/
-    │   ├── App.js
-    │   └── App.css
+    │   ├── App.js   # replaced from repo
+    │   ├── App.css  # replaced from repo
+    │   └── index.js
     └── public/
 ```
 
+---
+
 ## Backend Setup
-
-### Backend Dockerfile
-```dockerfile
-# filepath: /home/yash/Desktop/YOLO-APP/backend/Dockerfile
-FROM python:3.9
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 8000
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-This Dockerfile:
-- Uses Python 3.9 base image
-- Sets working directory to /app
-- Installs Python dependencies
-- Copies all backend files
-- Exposes port 8000
-- Starts FastAPI server
 
 ### Building & Running Backend
 ```bash
@@ -55,27 +70,9 @@ docker build -t yolo-backend .
 docker run -p 8000:8000 yolo-backend
 ```
 
+---
+
 ## Frontend Setup 
-
-### Frontend Dockerfile
-```dockerfile
-# filepath: /home/yash/Desktop/YOLO-APP/frontend/Dockerfile
-FROM node:18
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
-This Dockerfile:
-- Uses Node.js 18 base image
-- Sets working directory to /app
-- Installs npm dependencies
-- Copies all frontend files
-- Exposes port 3000
-- Starts React development server
 
 ### Building & Running Frontend
 ```bash
@@ -84,6 +81,8 @@ cd /home/yash/Desktop/YOLO-APP/frontend
 docker build -t yolo-frontend .
 docker run -p 3000:3000 yolo-frontend
 ```
+
+---
 
 ## Troubleshooting
 
@@ -106,20 +105,24 @@ docker stop $(docker ps -q)
 ```
 
 ### Common Issues
-- If backend can't load YOLO model, check if `yolov8n.pt` exists in backend directory
-- If frontend shows "Failed to fetch", ensure backend is running and URL is correct
-- If changes aren't reflecting, rebuild containers with:
+- If backend can’t load YOLO model, check if `yolov8n.pt` exists in backend directory  
+- If frontend shows "Failed to fetch", ensure backend is running and URL is correct  
+- If changes aren’t reflecting, rebuild containers with:
 ```bash
 docker build -t yolo-backend . # for backend
 docker build -t yolo-frontend . # for frontend
 ```
 
+---
+
 ## Accessing the App
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
+- Frontend: http://localhost:3000  
+- Backend API: http://localhost:8000  
+
+---
 
 ## Development Tips
-- Backend logs will show in Terminal 1
-- Frontend logs will show in Terminal 2
-- Use `docker logs <container-id>` to see logs of specific container
-- Use `docker exec -it <container-id> bash` to access container shell
+- Backend logs will show in Terminal 1  
+- Frontend logs will show in Terminal 2  
+- Use `docker logs <container-id>` to see logs of specific container  
+- Use `docker exec -it <container-id> bash` to access container shell  
