@@ -41,6 +41,9 @@ yarn-error.log*
 frontend/build/
 frontend/dist/
 
+# Allow public directory (needed for React app)
+!frontend/public/
+
 # IDE
 .vscode/
 .idea/
