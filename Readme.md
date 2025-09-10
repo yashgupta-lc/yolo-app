@@ -4,11 +4,6 @@ A full-stack web application for real-time object detection using YOLO (You Only
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Docker and Docker Compose installed
-- At least 4GB RAM available for Docker
-- Internet connection for downloading dependencies
-
 ### Option 1: Using Docker Compose (Recommended)
 
 1. **Clone or download the project**
